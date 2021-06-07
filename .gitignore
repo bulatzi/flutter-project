@@ -21,4 +21,4 @@ doc/api/
 *.js.map
 
 # Avoid committing library files that are rebuilt every time you run your code
-.idea/libraries
+.idea/libraries/*.xml
