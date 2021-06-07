@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
-class WelcomePage extends StatelessWidget {
+class ExamplePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Colors.grey,
         child: Center(
           child: ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, "/ExamplePage");
+              Navigator.pushNamed(context, "/WelcomePage");
             },
-            child: Text("Go to example page"),
+            child: Text("Go back to main page"),
           ),
         ),
       ),
