@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
         "/WelcomePage": (context) => WelcomePage(),
         "/ExamplePage": (context) => ExamplePage(),
         "/HomePage": (context) => HomePage(),
+        "/BottomBar": (context) => BottomBar(),
       }
     );
   }

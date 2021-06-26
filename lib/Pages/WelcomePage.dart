@@ -10,7 +10,8 @@ class WelcomePage extends StatelessWidget {
         child: Center(
           child: ElevatedButton(
             onPressed: () {
-              Navigator.pushNamed(context, "/ExamplePage");
+              //Navigator.pushNamed(context, "/ExamplePage");
+              Navigator.pushNamed(context, "/BottomBar");
             },
             child: Text("Go to example page"),
           ),
