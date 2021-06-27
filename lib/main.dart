@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: "/MyBooks",
+      initialRoute: "/WelcomePage",
       routes: {
         "/WelcomePage": (context) => WelcomePage(),
         "/ExamplePage": (context) => ExamplePage(),
