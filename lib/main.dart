@@ -14,11 +14,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: "/WelcomePage",
+      initialRoute: "/MyBooks",
       routes: {
         "/WelcomePage": (context) => WelcomePage(),
         "/ExamplePage": (context) => ExamplePage(),
         "/HomePage": (context) => HomePage(),
+        "/MyBooks": (context) => MyBooks(),
       }
     );
   }

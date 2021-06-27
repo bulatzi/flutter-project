@@ -1,47 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/theme.dart' as Theme;
 
-class HomePage extends StatelessWidget {
+class MyBooks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Widget titleSection = Container(
-      padding: const EdgeInsets.fromLTRB(20, 15, 8, 10),
-      child: Row(
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  //padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    //retrieve user's name
-                    'HELLO, USER',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 25,
-                      decoration: TextDecoration.underline,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-
-    Widget featuredBooks = Container(
+    Widget booksCheckedOut = Container(
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             //retrieve featured books from database?
-            ' Featured Books',
+            'BOOKS CHECKED-OUT!',
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontStyle: FontStyle.italic,
+                fontSize: 20,
+                decoration: TextDecoration.underline,
             ),
           ),
           SizedBox(height: 10),   //adds empty vertical space between each featured book
@@ -76,6 +50,7 @@ class HomePage extends StatelessWidget {
             ],  //children
           ),
           SizedBox(height: 10),
+ /*
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -133,8 +108,10 @@ class HomePage extends StatelessWidget {
                   fontStyle: FontStyle.italic,
                 ),
               ),
+
             ],  //children
           ),
+*/
         ],
       ),
     );
@@ -146,7 +123,7 @@ class HomePage extends StatelessWidget {
       theme: Theme.CompanyThemeData,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('WELCOME',
+          title: Text('MY BOOKS',
             style: TextStyle(
               fontSize: 30,
             ),
@@ -155,13 +132,7 @@ class HomePage extends StatelessWidget {
         body: ListView(
           children: [
             //upload library logo to firebase?
-            titleSection,
-            Image.asset(
-              'assets/images/libLogo.jpg',
-              height: 285,
-              fit: BoxFit.contain,
-            ),
-            featuredBooks,
+            booksCheckedOut,
           ],
         ),
       ),
