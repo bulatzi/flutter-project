@@ -4,13 +4,23 @@ import 'package:flutter_project/theme.dart' as Theme;
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ButtonStyle style =
+    ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
     Widget userProfile = Container(
       padding: const EdgeInsets.all(20),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.network(
-              'https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper.png'),
+
+          Image(  //default user image
+          image: NetworkImage(
+              'https://i.dlpng.com/static/png/5066062-user-profile-icon-png-download-fa-user-circle-o-free-profile-icon-png-820_861_preview.png'),
+            height: 200,
+            width: 200,
+          ),
+
+          SizedBox(height: 10), //space between picture and user name
+
           Text(
             //grab users name from firebase?
             'Isa\'s Profile',
@@ -18,6 +28,15 @@ class ProfilePage extends StatelessWidget {
               fontWeight: FontWeight.bold,
               fontSize: 20,
             ),
+          ),
+
+          SizedBox(height: 30),
+
+          ElevatedButton( //log out button
+            style: style,
+            onPressed: () {},
+            child: const Text('Log Out'),
+
           ),
         ],
       ),
