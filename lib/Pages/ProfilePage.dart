@@ -5,19 +5,21 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Widget userProfile = Container(
-      padding:  const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-        Text(
-          //grab users name from firebase?
-        'Isa\'s Profile',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
+          Image.network(
+              'https://w7.pngwing.com/pngs/340/956/png-transparent-profile-user-icon-computer-icons-user-profile-head-ico-miscellaneous-black-desktop-wallpaper.png'),
+          Text(
+            //grab users name from firebase?
+            'Isa\'s Profile',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),
           ),
-        ),
-      ],
+        ],
       ),
     );
 
