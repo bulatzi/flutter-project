@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Pages/Pages.dart';
+import 'package:flutter_project/Pages/ProfilePage.dart';
 
 void main() {
   runApp(MyApp());
@@ -14,13 +15,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: "/WelcomePage",
+      initialRoute: "/ProfilePage",
       routes: {
         "/WelcomePage": (context) => WelcomePage(),
         "/ExamplePage": (context) => ExamplePage(),
         "/HomePage": (context) => HomePage(),
         "/BottomBar": (context) => BottomBar(),
         "/MyBooks": (context) => MyBooks(),
+        "/ProfilePage": (context) => ProfilePage(),
       }
     );
   }
