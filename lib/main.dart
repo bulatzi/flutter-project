@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         "/ExamplePage": (context) => ExamplePage(),
         "/HomePage": (context) => HomePage(),
         "/BottomBar": (context) => BottomBar(),
+        "/MyBooks": (context) => MyBooks(),
       }
     );
   }
