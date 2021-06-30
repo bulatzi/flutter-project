@@ -5,3 +5,4 @@ export 'package:flutter_project/Pages/ExamplePage.dart';
 export 'package:flutter_project/Pages/HomePage.dart';
 export 'package:flutter_project/Pages/BottomBar.dart';
 export 'package:flutter_project/Pages/MyBooks.dart';
+export 'package:flutter_project/Pages/ProfilePage.dart';
