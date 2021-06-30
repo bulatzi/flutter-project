@@ -18,6 +18,8 @@ class MyApp extends StatelessWidget {
       routes: {
         "/WelcomePage": (context) => WelcomePage(),
         "/ExamplePage": (context) => ExamplePage(),
+        "/EmployeePage": (context) => EmployeePage(),
+        "/UserPage": (context) => UserPage(),
       }
     );
   }
