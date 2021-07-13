@@ -97,6 +97,7 @@ class _AuthDialogState extends State<AuthDialog> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
+                SizedBox(height: 30),
                 Center(
                   child: Text(
                     'Your local library',
@@ -110,53 +111,8 @@ class _AuthDialogState extends State<AuthDialog> {
                   ),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 50,
                 ),
-                Center(child: Text("Sign in as:")),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Container(
-                    width: double.infinity,
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 85,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.black,
-                                width: _isUser ? 2 : 0,
-                              )),
-                          child: ElevatedButton(
-                              onPressed: () {
-                                _isUser = true;
-                                setState(() {});
-                              },
-                              child: Text("User")),
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                          width: 85,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: Colors.black,
-                                width: _isUser ? 0 : 2,
-                              )),
-                          child: ElevatedButton(
-                              onPressed: () {
-                                _isUser = false;
-                                setState(() {});
-                              },
-                              child: Text("Employee")),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: 30),
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 20.0,
