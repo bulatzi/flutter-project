@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Database/authentication.dart';
 import 'package:flutter_project/Pages/Pages.dart';
@@ -113,6 +114,17 @@ class _AuthDialogState extends State<AuthDialog> {
                 SizedBox(
                   height: 50,
                 ),
+                ////////////////////////////////////////////////////////////////////////////////////////TODO - DELETE THIS
+                // It was added temporarily to allow developers to skip over the login screen without having to type in login info every time.
+                Center(
+                  child: ElevatedButton(
+                    child: Text("Bypass Login"),
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/BottomBar");
+                      },
+                  ),
+                ),
+                ////////////////////////////////////////////////////////////////////////////////////////
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 20.0,
