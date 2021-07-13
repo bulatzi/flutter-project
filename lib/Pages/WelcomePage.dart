@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/Database/authentication.dart';
 import 'package:flutter_project/Pages/Pages.dart';
 import 'package:flutter_project/Database/Database.dart';
+import 'package:flutter_project/theme.dart' as Theme;
+
+// TODO - Fix the color scheme on the login page
 
 class WelcomePage extends StatelessWidget {
 
@@ -84,7 +87,6 @@ class _AuthDialogState extends State<AuthDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: Theme.of(context).backgroundColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8.0),
       ),
@@ -93,7 +95,7 @@ class _AuthDialogState extends State<AuthDialog> {
           padding: const EdgeInsets.all(16.0),
           child: Container(
             width: 400,
-            color: Theme.of(context).backgroundColor,
+            color: Theme.CompanyColors.green[200],
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
@@ -103,7 +105,6 @@ class _AuthDialogState extends State<AuthDialog> {
                   child: Text(
                     'Your local library',
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.headline1!.color,
                       fontSize: 24,
                       fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
@@ -134,11 +135,8 @@ class _AuthDialogState extends State<AuthDialog> {
                     'Email address',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.subtitle2!.color,
                       fontSize: 18,
-                      // fontFamily: 'Montserrat',
                       fontWeight: FontWeight.bold,
-                      // letterSpacing: 3,
                     ),
                   ),
                 ),
@@ -198,10 +196,8 @@ class _AuthDialogState extends State<AuthDialog> {
                     'Password',
                     textAlign: TextAlign.left,
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.subtitle2!.color,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
-                      // letterSpacing: 3,
                     ),
                   ),
                 ),
@@ -429,7 +425,6 @@ class _AuthDialogState extends State<AuthDialog> {
                       style: TextStyle(
                         color: loginStringColor,
                         fontSize: 14,
-                        // letterSpacing: 3,
                       ),
                     ),
                   ),
