@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "168176472043",
+    "firebase_url": "https://project-84d37-default-rtdb.firebaseio.com",
+    "project_id": "project-84d37",
+    "storage_bucket": "project-84d37.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168176472043:android:c870719ad0aff0bae513ae",
+        "android_client_info": {
+          "package_name": "Wasted.Potential.Library"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168176472043-vtcjn43fg8djot289o9eola69631pj1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCxFoShF6QrddLM_jmzwF2d6fvk7mBJbxQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168176472043-vtcjn43fg8djot289o9eola69631pj1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
