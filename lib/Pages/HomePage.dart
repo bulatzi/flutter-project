@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/Pages/Pages.dart';
+import 'package:flutter_project/data.dart' as data;
 import 'package:flutter_project/theme.dart' as Theme;
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePage createState() => _HomePage();
+}
+class _HomePage extends State<HomePage> {
+  //BookInfo getInfo = new BookInfo();
   @override
   Widget build(BuildContext context) {
     Widget titleSection = Container(
@@ -30,7 +37,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
     );
-
+/*
     Widget featuredBooks = Container(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -139,6 +146,28 @@ class HomePage extends StatelessWidget {
       ),
     );
 
+*/
+    Widget featuredBooks = GridView.builder(
+       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount( crossAxisCount: 2,
+        ),
+      //crossAxisSpacing:  5,
+      //mainAxisSpacing: 5,
+        scrollDirection: Axis.vertical,
+      shrinkWrap: true,
+      padding: EdgeInsets.all(7.0),
+      itemCount: data.getBook().length,
+      itemBuilder: (BuildContext context, int index){
+         return ListTile(
+           title: Image.asset(data.getBook().elementAt(index).image, fit: BoxFit.fill),
+           onTap: () => Navigator.of(context).push(MaterialPageRoute(
+        builder: (context) => ViewBook(index)),
+           ),
+         );
+
+      }
+
+
+    );
 
     return MaterialApp(
       title: 'Welcome',
@@ -166,5 +195,6 @@ class HomePage extends StatelessWidget {
         ),
       ),
     );
+
   }
 }

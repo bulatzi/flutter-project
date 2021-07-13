@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         "/BottomBar": (context) => BottomBar(),
         "/MyBooks": (context) => MyBooks(),
         "/ProfilePage": (context) => ProfilePage(),
+
       }
     );
   }
