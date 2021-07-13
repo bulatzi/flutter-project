@@ -281,11 +281,7 @@ class _AuthDialogState extends State<AuthDialog> {
                                     });
                                     Future.delayed(Duration(milliseconds: 500),
                                             () {
-                                          _isUser
-                                              ? Navigator.pushNamed(
-                                              context, "/UserPage")
-                                              : Navigator.pushNamed(
-                                              context, "/EmployeePage");
+                                              Navigator.pushNamed(context, "/BottomBar");
                                         });
                                   }
                                 }).catchError((error) {
