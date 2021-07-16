@@ -296,7 +296,7 @@ class _AuthDialogState extends State<AuthDialog> {
                                   print('Login Error: $error');
                                   setState(() {
                                     loginStatus =
-                                    'Error occured while logging in';
+                                    'Error occurred while logging in';
                                     loginStringColor = Colors.red;
                                   });
                                 });
@@ -374,7 +374,7 @@ class _AuthDialogState extends State<AuthDialog> {
                                 print('Registration Error: $error');
                                 setState(() {
                                   loginStatus =
-                                  'Error occured while registering';
+                                  'Error occurred while registering';
                                   loginStringColor = Colors.red;
                                 });
                               });
