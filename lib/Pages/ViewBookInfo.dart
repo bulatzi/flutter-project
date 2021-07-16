@@ -39,7 +39,7 @@ class ViewBook extends StatelessWidget {
             ),
             Container(
               alignment: Alignment.topLeft,
-              margin: EdgeInsets.only(left: 8, top: 15, bottom: 15),
+              margin: EdgeInsets.only(left: 8, top: 10, bottom: 15),
               child: Text('Summary: '),
             ),
             Container(
