@@ -66,12 +66,14 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 20),  //adds space between feat book image and description
-              Text(
+              Expanded(
+                child: Text(
                 'feat book description',
                 style: TextStyle(
                   //fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
                 ),
+              ),
               ),
             ],  //children
           ),
@@ -96,12 +98,14 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 20),
-              Text(
+              Expanded(
+                child: Text(
                 'feat book description',
                 style: TextStyle(
                   //fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
                 ),
+              ),
               ),
             ],  //children
           ),
@@ -126,12 +130,14 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               SizedBox(width: 20),
-              Text(
+              Expanded(
+                child: Text(
                 'feat book description',
                 style: TextStyle(
                   //fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
                 ),
+              ),
               ),
             ],  //children
           ),
