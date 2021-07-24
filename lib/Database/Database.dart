@@ -1,8 +1,8 @@
 //import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 
-final databaseReference = FirebaseDatabase.instance.reference();
+/*final databaseReference = FirebaseDatabase.instance.reference();
 
 void GetBook(String title) async{
   //Retrieve book table, add something to it, set the table
@@ -26,4 +26,4 @@ void GetBook(String title) async{
 
   print(title);
   //print(result);
-}
+}*/

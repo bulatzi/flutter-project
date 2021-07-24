@@ -16,9 +16,9 @@ class _BottomBar extends State<BottomBar> {
 
   List<Widget> _widgetOptions = [
     HomePage(),
-     //BooksPage(),
-     MyBooks(),
-     ProfilePage(),
+    BooksPage(),
+    MyBooks(),
+    ProfilePage(),
   ];
 
   //selects bottom nav bar
@@ -43,12 +43,12 @@ class _BottomBar extends State<BottomBar> {
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.art_track_rounded),
-            label: 'Books',
+            label: 'All Books',
           ),
-//          BottomNavigationBarItem(
-//            icon: Icon(Icons.book),
-//            label: 'My Books',
-//          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.book),
+            label: 'My Books',
+          ),
           BottomNavigationBarItem(
             icon: Icon(Icons.account_circle),
             label: 'Profile',

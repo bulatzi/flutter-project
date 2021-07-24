@@ -1,8 +1,11 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Pages/Pages.dart';
 import 'package:flutter_project/Pages/ProfilePage.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -21,6 +24,7 @@ class MyApp extends StatelessWidget {
         "/ExamplePage": (context) => ExamplePage(),
         "/HomePage": (context) => HomePage(),
         "/BottomBar": (context) => BottomBar(),
+        "/BooksPage": (context) => BooksPage(),
         "/MyBooks": (context) => MyBooks(),
         "/ProfilePage": (context) => ProfilePage(),
       }
