@@ -10,7 +10,7 @@ class BooksPage extends StatelessWidget{
   //];
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _booksStream = FirebaseFirestore.instance.collection('Books').snapshots();
+    final Stream<QuerySnapshot> _booksStream = FirebaseFirestore.instance.collection('Books').orderBy('Title').snapshots();
     return Container(
       child: StreamBuilder<QuerySnapshot>(
         stream: _booksStream,
