@@ -1,17 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 //Changes to make ordered by priority:
 // Make Log Out button actually log out the user.
-// Make a checkout book button that adds the book to a user database where users can see only the books they have checked out.
+// HALF DONE Make a checkout book button that adds the book to a user database where users can see only the books they have checked out.
 // Navigator.pushNamedReplacement in the login page, so there isn't a back button and people can't just leave the app without logging out.
 // Make admin accounts
 // Create button that only Admin accounts can see that allows them to add or remove a book from the featured book list. This list will probably be another collection in the database.
 // Create a button that only Admin accounts can see that allows them to add or remove a book from the all books list.
-//Remove title mctitleron and sean's autobiography from database
+// Remove title mctitleron and sean's autobiography from database
 //Done:
 // Create function to update the firestore with all the info we want from a JSON list.
 
-//Anecdote about stuff that annoys me: The comma on the home page
+//Anecdote about stuff that annoys me: The comma on the home page. Home page and my books page have a scaffold that is weird as fuck.
+
 class BooksPage extends StatelessWidget{
   //final List<Book> booksList = [
   //  Book("Do Androids Dream of Electric Sheep?", "Phillip K. Dick", 1968, "Do Androids Dream of Electric Sheep? is a dystopian science fiction novel by American writer Philip K. Dick, first published in 1968. The novel is set in a post-apocalyptic San Francisco, where Earth's life has been greatly damaged by a nuclear global war, leaving most animal species endangered or extinct."),
@@ -55,7 +57,21 @@ class BooksPage extends StatelessWidget{
                   children: <Widget>[
                     Expanded(child: Text(book['title'], style: new TextStyle(fontSize: 20.0),),),
                     Spacer(),
-                    Icon(Icons.bookmark),
+                    ElevatedButton(
+                      child: Text("Checkout Book"),
+                      onPressed: () async{
+                        final uid = FirebaseAuth.instance.currentUser!.uid;
+
+                        await FirebaseFirestore.instance.collection("Users").doc(uid).collection("Checkouts").doc(book['title']).set(
+                          {
+                            'title': book['title'],
+                            'author': book['author'],
+                            'year': book['year'],
+                            'description': book['description'],
+                            'picture': book['picture']
+                          }
+                        );
+                      },),
                 ]),
               ),
               Padding(
