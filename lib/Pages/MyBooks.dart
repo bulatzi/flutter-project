@@ -1,23 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/theme.dart' as Theme;
 
 class MyBooks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Widget booksCheckedOut = Container(
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final Stream<QuerySnapshot> _booksStream = FirebaseFirestore.instance.collection('Users').doc(uid).collection('Checkouts').orderBy('title').snapshots();
+    return MaterialApp(
+      title: 'Welcome',
+      color: Theme.CompanyColors.green[200],
+      theme: Theme.CompanyThemeData,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('MY BOOKS',
+            style: TextStyle(
+              fontSize: 30,
+            ),
+          ),
+        ),
+        body: Container(
+          child: StreamBuilder<QuerySnapshot>(
+              stream: _booksStream,
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if(snapshot.hasError) {
+                  return Center(child: Text('Something went wrong'));
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: Text("Loading"));
+                }
+                return new ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        buildCheckoutList(context, snapshot.data!.docs[index])
+                );
+              }
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget buildCheckoutList(BuildContext context, DocumentSnapshot book) {
+    return Container(
       padding: const EdgeInsets.all(20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            //retrieve featured books from database?
-            'BOOKS CHECKED-OUT!',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-                fontSize: 20,
-                decoration: TextDecoration.underline,
-            ),
-          ),
           SizedBox(height: 10),   //adds empty vertical space between each featured book
 
           Row(
@@ -30,8 +60,8 @@ class MyBooks extends StatelessWidget {
                     print('go to featured book 1 page');
                   },
                   child:
-                  Image.asset(
-                    'assets/images/sampleBook1.jpg',
+                  Image.network(
+                    book['picture'],
                     //width: 600,
                     height: 250,
                     fit: BoxFit.contain,
@@ -42,7 +72,7 @@ class MyBooks extends StatelessWidget {
               SizedBox(width: 20),  //adds space between feat book image and description
               Expanded(
                 child: Text(
-                'feat book description',
+                book['title'],
                 style: TextStyle(
                   //fontWeight: FontWeight.bold,
                   fontStyle: FontStyle.italic,
@@ -115,28 +145,6 @@ class MyBooks extends StatelessWidget {
           ),
 */
         ],
-      ),
-    );
-
-
-    return MaterialApp(
-      title: 'Welcome',
-      color: Theme.CompanyColors.green[200],
-      theme: Theme.CompanyThemeData,
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('MY BOOKS',
-            style: TextStyle(
-              fontSize: 30,
-            ),
-          ),
-        ),
-        body: ListView(
-          children: [
-            //upload library logo to firebase?
-            booksCheckedOut,
-          ],
-        ),
       ),
     );
   }
