@@ -2,26 +2,33 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_project/theme.dart' as Theme;
+
+
 //Changes to make ordered by priority:
 // Make Log Out button actually log out the user.
 // HALF DONE Make a checkout book button that adds the book to a user database where users can see only the books they have checked out.
+// Make checkin button that either removes books from checkouts, or moves it to another collection that admins can then actually remove.
 // Navigator.pushNamedReplacement in the login page, so there isn't a back button and people can't just leave the app without logging out.
 // Make admin accounts
 // Create button that only Admin accounts can see that allows them to add or remove a book from the featured book list. This list will probably be another collection in the database.
 // Create a button that only Admin accounts can see that allows them to add or remove a book from the all books list.
 // Remove title mctitleron and sean's autobiography from database
+
 //Done:
+// Update mybooks to pull user specific checkouts and display it from firestore.
+// Update mybooks to display images.
+// Update first couple of entries in the database/JSON with description and picture.
 // Create function to update the firestore with all the info we want from a JSON list.
 
-//Anecdote about stuff that annoys me: The comma on the home page. Home page and my books page have a scaffold that is weird as fuck.
+//Anecdote about stuff that annoys me or small changes:
+// Login Page should attempt login when you hit enter.
+// main.dart remove profile page import
+// The comma on the top of home page.
+
+
 
 class BooksPage extends StatelessWidget{
-  //final List<Book> booksList = [
-  //  Book("Do Androids Dream of Electric Sheep?", "Phillip K. Dick", 1968, "Do Androids Dream of Electric Sheep? is a dystopian science fiction novel by American writer Philip K. Dick, first published in 1968. The novel is set in a post-apocalyptic San Francisco, where Earth's life has been greatly damaged by a nuclear global war, leaving most animal species endangered or extinct."),
-  //  Book("The Hitchhiker's Guide to the Galaxy", "Douglas Adams", 1978, "The Hitchhiker's Guide to the Galaxy is a comedy science fiction franchise created by Douglas Adams. Originally a 1978 radio comedy broadcast on BBC Radio 4, it was later adapted to other formats, including stage shows, novels, comic books, a 1981 TV series, a 1984 video game, and 2005 feature film."),
-  //  Book("Something Wicked This Way Comes", "Ray Bradbury", 1962, "Something Wicked This Way Comes is a 1962 dark fantasy novel by Ray Bradbury. It is about two 13-year-old best friends, Jim Nightshade and William Halloway, and their nightmarish experience with a traveling carnival that comes to their Midwestern home, Green Town, Illinois, on October 24th."),
- //   Book("Pride and Prejudice and Zombies", "Seth Grahame-Smith", 2009, "Pride and Prejudice and Zombies is a 2009 parody novel by Seth Grahame-Smith. It is a mashup combining Jane Austen's classic 1813 novel Pride and Prejudice with elements of modern zombie fiction, crediting Austen as co-author."),
-  //];
+
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _booksStream = FirebaseFirestore.instance.collection('Books').orderBy('title').snapshots();
