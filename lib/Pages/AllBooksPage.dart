@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_project/theme.dart' as Theme;
 //Changes to make ordered by priority:
 // Make Log Out button actually log out the user.
 // HALF DONE Make a checkout book button that adds the book to a user database where users can see only the books they have checked out.
@@ -24,22 +25,36 @@ class BooksPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _booksStream = FirebaseFirestore.instance.collection('Books').orderBy('title').snapshots();
-    return Container(
-      child: StreamBuilder<QuerySnapshot>(
-        stream: _booksStream,
-        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if(snapshot.hasError) {
-            return Text('Something went wrong');
-          }
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Text("Loading");
-          }
-          return new ListView.builder(
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (BuildContext context, int index) =>
-                    buildBookCard(context, snapshot.data!.docs[index])
-            );
-          }
+    return MaterialApp(
+      title: 'Welcome',
+      color: Theme.CompanyColors.green[200],
+      theme: Theme.CompanyThemeData,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('ALL BOOKS',
+            style: TextStyle(
+              fontSize: 30,
+            ),
+          ),
+        ),
+        body: Container(
+          child: StreamBuilder<QuerySnapshot>(
+            stream: _booksStream,
+            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+              if(snapshot.hasError) {
+                return Center(child: Text('Something went wrong'));
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: Text("Loading"));
+              }
+              return new ListView.builder(
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        buildBookCard(context, snapshot.data!.docs[index])
+                );
+              }
+          ),
+        ),
       ),
     );
   }
