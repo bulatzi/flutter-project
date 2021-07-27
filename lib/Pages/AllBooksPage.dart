@@ -24,6 +24,7 @@ import 'package:flutter_project/theme.dart' as Theme;
 // Login Page should attempt login when you hit enter.
 // main.dart remove profile page import
 // The comma on the top of home page.
+// Change count of books in database.dart
 
 
 
