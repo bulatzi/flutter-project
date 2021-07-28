@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_project/Pages/DetailedBookPage.dart';
@@ -40,7 +39,7 @@ class BooksPage extends StatelessWidget{
       theme: Theme.CompanyThemeData,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('ALL BOOKS',
+          title: Text('All Books',
             style: TextStyle(
               fontSize: 30,
             ),
@@ -81,11 +80,13 @@ class BooksPage extends StatelessWidget{
             children: <Widget>[
               Column(
                 children: <Widget>[
-                  Image.network(
-                    book['picture'],
+                  Image.network(book['picture'],
                     width: 100,
                     height: 150,
                     fit: BoxFit.contain,
+                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                      return Placeholder(fallbackWidth: 100, fallbackHeight: 150,);
+                    },
                   ),
                 ],
               ),
@@ -99,22 +100,20 @@ class BooksPage extends StatelessWidget{
                       padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                       child: Row(
                         children: <Widget>[
-                          Text(book['title'], style: TextStyle(fontSize: 20.0),),
-                          Spacer(),
+                          Flexible(fit: FlexFit.loose, child: Text(book['title'], style: TextStyle(fontSize: 20.0),)),
                       ]),
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
                       child: Row(
                           children: <Widget>[
-                            Text(book['author']),
-                            Spacer(),
+                            Flexible(fit: FlexFit.loose, child: Text(book['author'])),
                           ]),
                     ),
                   ],
                 ),
+                ),
               ),
-            ),
 
             ],
           ),

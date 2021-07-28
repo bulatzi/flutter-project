@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_project/Pages/DetailedBookPage.dart';
 import 'package:flutter_project/theme.dart' as Theme;
 
 class MyBooks extends StatelessWidget {
@@ -9,12 +10,12 @@ class MyBooks extends StatelessWidget {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final Stream<QuerySnapshot> _booksStream = FirebaseFirestore.instance.collection('Users').doc(uid).collection('Checkouts').orderBy('title').snapshots();
     return MaterialApp(
-      title: 'Welcome',
+      title: 'MyBooksPage',
       color: Theme.CompanyColors.green[200],
       theme: Theme.CompanyThemeData,
       home: Scaffold(
         appBar: AppBar(
-          title: Text('MY BOOKS',
+          title: Text('My Books',
             style: TextStyle(
               fontSize: 30,
             ),
@@ -44,107 +45,61 @@ class MyBooks extends StatelessWidget {
 
   Widget buildCheckoutList(BuildContext context, DocumentSnapshot book) {
     return Container(
-      padding: const EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(height: 10),   //adds empty vertical space between each featured book
+      child: Padding(
+        padding: const EdgeInsets.only(
+            left: 8.0,
+            right: 8.0
+        ),
+        child: Card(
+          child: InkWell(
+            child: Row(
+              children: <Widget>[
+                Column(
+                  children: <Widget>[
+                      Image.network(book['picture'],
+                        width: 100,
+                        height: 150,
+                        fit: BoxFit.contain,
+                      errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                        return Placeholder(fallbackWidth: 100, fallbackHeight: 150,);
+                      },
+                    ),
+                  ],
+                ),
 
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Card(
-                child: InkWell(   //not working
-                  splashColor: Colors.green[200],
-                  onTap: () {   //working need to implement destination
-                    print('go to featured book 1 page');
-                  },
-                  child:
-                  Image.network(
-                    book['picture'],
-                    //width: 600,
-                    height: 250,
-                    fit: BoxFit.contain,
-                    alignment: Alignment.topLeft,
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                          child: Row(
+                              children: <Widget>[
+                                Flexible(fit: FlexFit.loose, child: Text(book['title'], style: TextStyle(fontSize: 20.0),)),
+                              ]),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                          child: Row(
+                              children: <Widget>[
+                                Flexible(fit: FlexFit.loose, child: Text(book['author'])),
+                              ]),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(width: 20),  //adds space between feat book image and description
-              Expanded(
-                child: Text(
-                book['title'],
-                style: TextStyle(
-                  //fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-              ),
-            ],  //children
-          ),
-          SizedBox(height: 10),
- /*
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Card(
-                child: InkWell(
-                  splashColor: Colors.green[200],
-                  onTap: () {
-                    print('go to featured book 2 page');
-                  },
-                  child:
-                  Image.asset(
-                    'assets/images/sampleBook2.jpg',
-                    //width: 600,
-                    height: 250,
-                    fit: BoxFit.contain,
-                    alignment: Alignment.topLeft,
-                  ),
-                ),
-              ),
-              SizedBox(width: 20),
-              Text(
-                'feat book description',
-                style: TextStyle(
-                  //fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ],  //children
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Card(
-                child: InkWell(
-                  splashColor: Colors.green[200],
-                  onTap: () {
-                    print('go to featured book 3 page');
-                  },
-                  child:
-                  Image.asset(
-                    'assets/images/sampleBook3.jpg',
-                    //width: 600,
-                    height: 250,
-                    fit: BoxFit.contain,
-                    alignment: Alignment.topLeft,
-                  ),
-                ),
-              ),
-              SizedBox(width: 20),
-              Text(
-                'feat book description',
-                style: TextStyle(
-                  //fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
 
-            ],  //children
+              ],
+            ),
+            onTap: (){
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => ViewBookDetails(book: book)));
+            },
           ),
-*/
-        ],
+        ),
       ),
     );
   }
