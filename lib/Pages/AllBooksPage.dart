@@ -1,6 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_project/Pages/DetailedBookPage.dart';
 import 'package:flutter_project/theme.dart' as Theme;
 
 
@@ -34,7 +35,7 @@ class BooksPage extends StatelessWidget{
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _booksStream = FirebaseFirestore.instance.collection('Books').orderBy('title').snapshots();
     return MaterialApp(
-      title: 'Welcome',
+      title: 'AllBooksPage',
       color: Theme.CompanyColors.green[200],
       theme: Theme.CompanyThemeData,
       home: Scaffold(
@@ -69,46 +70,60 @@ class BooksPage extends StatelessWidget{
 
   Widget buildBookCard(BuildContext context, DocumentSnapshot book){
     return Container(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: 8.0,
+          right: 8.0
+        ),
       child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
+        child: InkWell(
+          child: Row(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                child: Row(
-                  children: <Widget>[
-                    Expanded(child: Text(book['title'], style: new TextStyle(fontSize: 20.0),),),
-                    Spacer(),
-                    ElevatedButton(
-                      child: Text("Checkout Book"),
-                      onPressed: () async{
-                        final uid = FirebaseAuth.instance.currentUser!.uid;
+              Column(
+                children: <Widget>[
+                  Image.network(
+                    book['picture'],
+                    width: 100,
+                    height: 150,
+                    fit: BoxFit.contain,
+                  ),
+                ],
+              ),
 
-                        await FirebaseFirestore.instance.collection("Users").doc(uid).collection("Checkouts").doc(book['title']).set(
-                          {
-                            'title': book['title'],
-                            'author': book['author'],
-                            'year': book['year'],
-                            'description': book['description'],
-                            'picture': book['picture']
-                          }
-                        );
-                      },),
-                ]),
+              Expanded(
+                child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: <Widget>[
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                      child: Row(
+                        children: <Widget>[
+                          Text(book['title'], style: TextStyle(fontSize: 20.0),),
+                          Spacer(),
+                      ]),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
+                      child: Row(
+                          children: <Widget>[
+                            Text(book['author']),
+                            Spacer(),
+                          ]),
+                    ),
+                  ],
+                ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                child: Row(
-                    children: <Widget>[
-                      Text(book['author']),
-                      Spacer(),
-                      Text(book['year'].toString()),
-                    ]),
-              ),
-              Text(book['description']),
+            ),
+
             ],
           ),
+          onTap: (){
+            Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ViewBookDetails(book: book)));
+          },
+         ),
         ),
       ),
     );
