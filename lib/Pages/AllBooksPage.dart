@@ -5,9 +5,8 @@ import 'package:flutter_project/theme.dart' as Theme;
 
 
 //Changes to make ordered by priority:
-// Make Log Out button actually log out the user.
-// HALF DONE Make a checkout book button that adds the book to a user database where users can see only the books they have checked out.
-// Make checkin button that either removes books from checkouts, or moves it to another collection that admins can then actually remove.
+// Add search bar to AllBooksPage
+// Update checkout button on book details screen to give a notification if the book is already checked out.
 // Navigator.pushNamedReplacement in the login page, so there isn't a back button and people can't just leave the app without logging out.
 // Make admin accounts
 // Create button that only Admin accounts can see that allows them to add or remove a book from the featured book list. This list will probably be another collection in the database.
@@ -15,6 +14,12 @@ import 'package:flutter_project/theme.dart' as Theme;
 // Remove title mctitleron and sean's autobiography from database
 
 //Done:
+// Update Home Page to have book details when tapping on a book and a checkout book button on that detail screen.
+// Update Home Page to pull featured books from firestore collection called FeaturedBooks.
+// Make check-in button that either removes books from checkouts (CURRENTLY DOES THIS UPDATE IF ADMIN ACCOUNTS ARE IMPLEMENTED), or moves it to another collection that admins can then actually remove.
+// Make Log Out button actually log out the user.
+// Make detailed book page.
+// Make a checkout book button that adds the book to a user database where users can see only the books they have checked out.
 // Update mybooks to pull user specific checkouts and display it from firestore.
 // Update mybooks to display images.
 // Update first couple of entries in the database/JSON with description and picture.
