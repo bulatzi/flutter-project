@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 
-class ViewBookDetails extends StatelessWidget{
+class ViewBookDetailsCheckin extends StatelessWidget{
 
-  ViewBookDetails({Key? key, required this.book}) : super(key: key);
+  ViewBookDetailsCheckin({Key? key, required this.book}) : super(key: key);
 
   final DocumentSnapshot book;
 
@@ -21,10 +21,13 @@ class ViewBookDetails extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Image.network(
-                book['picture'],
-                width: 300,
-                height: 300,
-                fit: BoxFit.contain,
+              book['picture'],
+              width: 300,
+              height: 300,
+              fit: BoxFit.contain,
+              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                return Placeholder(fallbackWidth: 100, fallbackHeight: 150,);
+              },
             ),
             Text("Title: " + book['title']),
             Text("Author: " + book['author']),
@@ -35,19 +38,12 @@ class ViewBookDetails extends StatelessWidget{
             ),
 
             ElevatedButton(
-              child: Text("Checkout Book"),
+              child: Text("Check-in Book"),
               onPressed: () async{
                 final uid = FirebaseAuth.instance.currentUser!.uid;
 
-                await FirebaseFirestore.instance.collection("Users").doc(uid).collection("Checkouts").doc(book['title']).set(
-                    {
-                      'title': book['title'],
-                      'author': book['author'],
-                      'year': book['year'],
-                      'description': book['description'],
-                      'picture': book['picture']
-                    }
-                );
+                await FirebaseFirestore.instance.collection("Users").doc(uid).collection("Checkouts").doc(book['title']).delete();
+                Navigator.pop(context);
               },),
           ],
         ),

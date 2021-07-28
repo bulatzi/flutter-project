@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/Pages/DetailedBookPage.dart';
+import 'package:flutter_project/Pages/DetailedBookCheckinPage.dart';
 import 'package:flutter_project/theme.dart' as Theme;
 
 class MyBooks extends StatelessWidget {
@@ -60,9 +60,9 @@ class MyBooks extends StatelessWidget {
                         width: 100,
                         height: 150,
                         fit: BoxFit.contain,
-                      errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                        return Placeholder(fallbackWidth: 100, fallbackHeight: 150,);
-                      },
+                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                          return Placeholder(fallbackWidth: 100, fallbackHeight: 150,);
+                        },
                     ),
                   ],
                 ),
@@ -96,7 +96,7 @@ class MyBooks extends StatelessWidget {
             onTap: (){
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ViewBookDetails(book: book)));
+                  MaterialPageRoute(builder: (context) => ViewBookDetailsCheckin(book: book)));
             },
           ),
         ),
