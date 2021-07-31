@@ -39,6 +39,7 @@ class ViewBookDetailsCheckin extends StatelessWidget{
 
             ElevatedButton(
               child: Text("Check-in Book"),
+              style: ElevatedButton.styleFrom(primary: Colors.green),
               onPressed: () async{
                 final uid = FirebaseAuth.instance.currentUser!.uid;
 

@@ -39,6 +39,7 @@ class ViewBookDetailsCheckout extends StatelessWidget{
 
             ElevatedButton(
               child: Text("Checkout Book"),
+              style: ElevatedButton.styleFrom(primary: Colors.green),
               onPressed: () async{
                 final uid = FirebaseAuth.instance.currentUser!.uid;
 
