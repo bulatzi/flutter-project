@@ -2,18 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_project/Pages/DetailedBookCheckoutPage.dart';
 import 'package:flutter_project/theme.dart' as Theme;
+import 'Book.dart';
 
 
 //Changes to make ordered by priority:
-// Add search bar to AllBooksPage
-// Update checkout button on book details screen to give a notification if the book is already checked out.
 // Navigator.pushNamedReplacement in the login page, so there isn't a back button and people can't just leave the app without logging out.
-// Make admin accounts
-// Create button that only Admin accounts can see that allows them to add or remove a book from the featured book list. This list will probably be another collection in the database.
-// Create a button that only Admin accounts can see that allows them to add or remove a book from the all books list.
+// Update checkout button on book details screen to give a notification if the book is already checked out.
+// Create a button that only Admin accounts can see that allows them to Add a book to the all books list.
+// Remove bypass login button.
 // Remove title mctitleron and sean's autobiography from database
 
 //Done:
+// Add search bar to AllBooksPage
+// Create a button that only Admin accounts can see that allows them to remove a book from the all books list.
+// Create button that only Admin accounts can see that allows them to add a book from the featured book list.
+// Create button that only Admin accounts can see that allows them to remove a book from the featured book list.
+// Make admin accounts
 // Update Home Page to have book details when tapping on a book and a checkout book button on that detail screen.
 // Update Home Page to pull featured books from firestore collection called FeaturedBooks.
 // Make check-in button that either removes books from checkouts (CURRENTLY DOES THIS UPDATE IF ADMIN ACCOUNTS ARE IMPLEMENTED), or moves it to another collection that admins can then actually remove.
@@ -33,16 +37,82 @@ import 'package:flutter_project/theme.dart' as Theme;
 
 
 
-class BooksPage extends StatelessWidget{
+class BooksPage extends StatefulWidget{
 
   @override
+  _BooksPageState createState() => _BooksPageState();
+}
+
+class _BooksPageState extends State<BooksPage> {
+  TextEditingController _searchController = TextEditingController();
+
+  late Future resultsLoaded;
+  List _allResults = [];
+  List _resultsList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _searchController.addListener(_onSearchChanged);
+  }
+
+  @override
+  void dispose() {
+    _searchController.removeListener(_onSearchChanged);
+    _searchController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    resultsLoaded = getAllBookStreamSnapshots();
+  }
+
+  _onSearchChanged() {
+    searchResultsList();
+  }
+
+  searchResultsList() {
+    var showResults = [];
+
+    if (_searchController.text != "") {
+      for (var bookSnapshot in _allResults) {
+        var title = Book
+            .fromSnapshot(bookSnapshot)
+            .title
+            .toLowerCase();
+
+        if (title.contains(_searchController.text.toLowerCase())) {
+          showResults.add(bookSnapshot);
+        }
+      }
+    } else {
+      showResults = List.from(_allResults);
+    }
+    setState(() {
+      _resultsList = showResults;
+    });
+  }
+
+  getAllBookStreamSnapshots() async {
+    // Get docs from collection reference
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('Books').get();
+
+    setState(() {
+      _allResults = querySnapshot.docs;
+    });
+    searchResultsList();
+    return "complete";
+  }
+
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _booksStream = FirebaseFirestore.instance.collection('Books').orderBy('title').snapshots();
     return MaterialApp(
       title: 'AllBooksPage',
       color: Theme.CompanyColors.green[200],
       theme: Theme.CompanyThemeData,
       home: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text('All Books',
             style: TextStyle(
@@ -51,228 +121,96 @@ class BooksPage extends StatelessWidget{
           ),
         ),
         body: Container(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: _booksStream,
-            builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-              if(snapshot.hasError) {
-                return Center(child: Text('Something went wrong'));
-              }
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return Center(child: Text("Loading"));
-              }
-              return new ListView.builder(
-                    itemCount: snapshot.data!.docs.length,
-                    itemBuilder: (BuildContext context, int index) =>
-                        buildBookCard(context, snapshot.data!.docs[index])
-                );
-              }
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget buildBookCard(BuildContext context, DocumentSnapshot book){
-    return Container(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: 8.0,
-          right: 8.0
-        ),
-      child: Card(
-        child: InkWell(
-          child: Row(
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Image.network(book['picture'],
-                    width: 100,
-                    height: 150,
-                    fit: BoxFit.contain,
-                    errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                      return Placeholder(fallbackWidth: 100, fallbackHeight: 150,);
-                    },
-                  ),
-                ],
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 30.0, right: 30.0, bottom: 30.0),
+                child: TextField(
+                  controller: _searchController,
+                  decoration: InputDecoration(prefixIcon: Icon(Icons.search)),
+                ),
               ),
-
               Expanded(
-                child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                      child: Row(
-                        children: <Widget>[
-                          Flexible(fit: FlexFit.loose, child: Text(book['title'], style: TextStyle(fontSize: 20.0),)),
-                      ]),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
-                      child: Row(
-                          children: <Widget>[
-                            Flexible(fit: FlexFit.loose, child: Text(book['author'])),
-                          ]),
-                    ),
-                  ],
-                ),
+                child: ListView.builder(
+                    itemCount: _resultsList.length,
+                    itemBuilder: (BuildContext context, int index) =>
+                        buildBookCard(context, _resultsList[index])
                 ),
               ),
-
             ],
           ),
-          onTap: (){
-            Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => ViewBookDetailsCheckout(book: book)));
-          },
-         ),
         ),
       ),
     );
   }
-}
 
-
-/*
-Future<List<String>> getBooks() async {
-  // Opens a reference to the database, and pulls all the data from the books directory
-  final data = await FirebaseDatabase.instance
-      .reference()
-      .child("Books")
-      .get();
-
-  // Makes an empty list
-  List<String> bookList = [];
-
-  //This adds the titles of all the books to a list
-  new Map<String, dynamic>.from(data?.value).forEach((key, values) {
-    //print(values['title']);
-    bookList.add(values['title']);
-  });
-
-  return bookList;
-}
-class BooksView extends StatelessWidget
-{
-  @override
-  Widget build(BuildContext context)
-  {
-    return Container(
-      child: StreamBuilder(
-        stream:
-      )
-    )
-  }
-}
-class SearchService {
-  searchByName(String searchField) {
-    return FirebaseFirestore.instance
-        .collection('Books')
-        .where('searchKey',
-        isEqualTo: searchField.substring(0, 1).toUpperCase())
-        .get();
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => new _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  var queryResultSet = [];
-  var tempSearchStore = [];
-
-  initiateSearch(value) {
-    if (value.length == 0) {
-      setState(() {
-        queryResultSet = [];
-        tempSearchStore = [];
-      });
-    }
-
-    var capitalizedValue =
-        value.substring(0, 1).toUpperCase() + value.substring(1);
-
-    if (queryResultSet.length == 0 && value.length == 1) {
-      SearchService().searchByName(value).then((QuerySnapshot docs) {
-        for (int i = 0; i < docs.docs.length; ++i) {
-          queryResultSet.add(docs.docs[i].data);
-        }
-      });
-    } else {
-      tempSearchStore = [];
-      queryResultSet.forEach((element) {
-        if (element['Title'].startsWith(capitalizedValue)) {
-          setState(() {
-            tempSearchStore.add(element);
-          });
-        }
-      });
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return new Scaffold(
-        appBar: new AppBar(
-          title: Text('Firestore search'),
-        ),
-        body: ListView(children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: TextField(
-              onChanged: (val) {
-                initiateSearch(val);
-              },
-              decoration: InputDecoration(
-                  prefixIcon: IconButton(
-                    color: Colors.black,
-                    icon: Icon(Icons.arrow_back),
-                    iconSize: 20.0,
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+  Widget buildBookCard(BuildContext context, DocumentSnapshot book) {
+      return Container(
+        child: Padding(
+          padding: const EdgeInsets.only(
+              left: 8.0,
+              right: 8.0
+          ),
+          child: Card(
+            child: InkWell(
+              child: Row(
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Image.network(book['picture'],
+                        width: 100,
+                        height: 150,
+                        fit: BoxFit.contain,
+                        errorBuilder: (BuildContext context, Object exception,
+                            StackTrace? stackTrace) {
+                          return Placeholder(fallbackWidth: 100,
+                            fallbackHeight: 150,);
+                        },
+                      ),
+                    ],
                   ),
-                  contentPadding: EdgeInsets.only(left: 25.0),
-                  hintText: 'Search by title',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0))),
+
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        children: <Widget>[
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 8.0, bottom: 8.0),
+                            child: Row(
+                                children: <Widget>[
+                                  Flexible(fit: FlexFit.loose,
+                                      child: Text(book['title'],
+                                        style: TextStyle(fontSize: 20.0),)),
+                                ]),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                top: 8.0, bottom: 8.0),
+                            child: Row(
+                                children: <Widget>[
+                                  Flexible(fit: FlexFit.loose,
+                                      child: Text(book['author'])),
+                                ]),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>
+                        ViewBookDetailsCheckout(book: book)));
+              },
             ),
           ),
-          SizedBox(height: 10.0),
-          GridView.count(
-              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-              crossAxisCount: 2,
-              crossAxisSpacing: 4.0,
-              mainAxisSpacing: 4.0,
-              primary: false,
-              shrinkWrap: true,
-              children: tempSearchStore.map((element) {
-                return buildResultCard(element);
-              }).toList())
-        ]));
+        ),
+      );
+    }
   }
-}
-
-Widget Build
-
-Widget buildResultCard(data) {
-  return Card(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-      elevation: 2.0,
-      child: Container(
-          child: Center(
-              child: Text(data['Title'],
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 20.0,
-                ),
-              )
-          )
-      )
-  );
-}*/
