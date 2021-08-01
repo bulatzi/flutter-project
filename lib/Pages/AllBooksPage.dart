@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_project/Pages/AddBookPage.dart';
 import 'package:flutter_project/Pages/DetailedBookCheckoutPage.dart';
 import 'package:flutter_project/theme.dart' as Theme;
 import 'Book.dart';
@@ -107,6 +109,7 @@ class _BooksPageState extends State<BooksPage> {
   }
 
   Widget build(BuildContext context) {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
     return MaterialApp(
       title: 'AllBooksPage',
       color: Theme.CompanyColors.green[200],
@@ -119,6 +122,30 @@ class _BooksPageState extends State<BooksPage> {
               fontSize: 30,
             ),
           ),
+          actions: <Widget>[
+                FutureBuilder(
+                  future: FirebaseFirestore.instance.collection("Users").doc(uid).get(),
+                  builder:  (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                    if (snapshot.hasError) {
+                      return Text("Something went wrong");
+                    }
+
+                    if (snapshot.hasData && !snapshot.data!.exists) {
+                      return Container();
+                    }
+
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                      if(data['isAdmin']){
+                        return IconButton(onPressed: (){
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => AddBookPage()));},icon: Icon(Icons.add));
+                      }
+                      return Container();
+                    }
+                    return Text("loading");
+                  },
+                ),
+          ],
         ),
         body: Container(
           child: Column(
