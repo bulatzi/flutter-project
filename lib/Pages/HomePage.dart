@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/Pages/DetailedBookCheckoutPage.dart';
+import 'package:flutter_project/Pages/DetailedFeaturedBookCheckoutPage.dart';
 import 'package:flutter_project/theme.dart' as Theme;
 
 class HomePage extends StatelessWidget {
@@ -119,7 +119,7 @@ class HomePage extends StatelessWidget {
             onTap: (){
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ViewBookDetailsCheckout(book: book)));
+                  MaterialPageRoute(builder: (context) => ViewFeaturedBookDetailsCheckout(book: book)));
             },
           ),
         ),

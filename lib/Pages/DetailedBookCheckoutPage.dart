@@ -9,9 +9,10 @@ class ViewBookDetailsCheckout extends StatelessWidget{
   ViewBookDetailsCheckout({Key? key, required this.book}) : super(key: key);
 
   final DocumentSnapshot book;
-
+  final uid = FirebaseAuth.instance.currentUser!.uid;
+  bool isAdmin = false;
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Book Details', style: TextStyle(fontSize: 30.0),),
@@ -21,13 +22,13 @@ class ViewBookDetailsCheckout extends StatelessWidget{
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
             Image.network(
-                book['picture'],
-                width: 300,
-                height: 300,
-                fit: BoxFit.contain,
-                errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                  return Placeholder(fallbackWidth: 100, fallbackHeight: 150,);
-                },
+              book['picture'],
+              width: 300,
+              height: 300,
+              fit: BoxFit.contain,
+              errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                return Placeholder(fallbackWidth: 100, fallbackHeight: 150,);
+              },
             ),
             Text("Title: " + book['title']),
             Text("Author: " + book['author']),
@@ -41,7 +42,6 @@ class ViewBookDetailsCheckout extends StatelessWidget{
               child: Text("Checkout Book"),
               style: ElevatedButton.styleFrom(primary: Colors.green),
               onPressed: () async{
-                final uid = FirebaseAuth.instance.currentUser!.uid;
 
                 await FirebaseFirestore.instance.collection("Users").doc(uid).collection("Checkouts").doc(book['title']).set(
                     {
@@ -52,9 +52,44 @@ class ViewBookDetailsCheckout extends StatelessWidget{
                       'picture': book['picture']
                     }
                 );
-
                 Navigator.pop(context);
               },),
+            FutureBuilder(
+              future: FirebaseFirestore.instance.collection("Users").doc(uid).get(),
+              builder:  (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text("Something went wrong");
+                }
+
+                if (snapshot.hasData && !snapshot.data!.exists) {
+                  return Container();
+                }
+
+                if (snapshot.connectionState == ConnectionState.done) {
+                  Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                  isAdmin = data['isAdmin'];
+                  return ElevatedButton(
+                    child: Text("Add Book To Featured List"),
+                    style: ElevatedButton.styleFrom(primary: Colors.green[300]),
+                    onPressed: () async {
+                      await FirebaseFirestore.instance.collection("FeaturedBooks")
+                          .doc(book['title'])
+                          .set(
+                        {
+                          'title': book['title'],
+                          'author': book['author'],
+                          'year': book['year'],
+                          'description': book['description'],
+                          'picture': book['picture']
+                        }
+                      );
+                      Navigator.pop(context);
+                    },
+                  );
+                }
+                return Text("loading");
+              },
+            ),
           ],
         ),
       ),
