@@ -10,7 +10,7 @@ class ViewFeaturedBookDetailsCheckout extends StatelessWidget{
 
   final DocumentSnapshot book;
   final uid = FirebaseAuth.instance.currentUser!.uid;
-  bool isAdmin = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,9 +67,9 @@ class ViewFeaturedBookDetailsCheckout extends StatelessWidget{
 
                   if (snapshot.connectionState == ConnectionState.done) {
                     Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-                    isAdmin = data['isAdmin'];
-                    return ElevatedButton(
-                      child: Text("Remove Book From Featured List"),
+                    if(data['isAdmin']){
+                      return ElevatedButton(
+                        child: Text("Remove Book From Featured List"),
                       style: ElevatedButton.styleFrom(primary: Colors.red),
                       onPressed: () async {
                         await FirebaseFirestore.instance.collection("FeaturedBooks")
@@ -78,6 +78,8 @@ class ViewFeaturedBookDetailsCheckout extends StatelessWidget{
                         Navigator.pop(context);
                       },
                     );
+                    }
+                  return Container();
                   }
                   return Text("loading");
                 },

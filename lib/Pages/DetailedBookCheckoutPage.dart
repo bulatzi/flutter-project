@@ -10,7 +10,7 @@ class ViewBookDetailsCheckout extends StatelessWidget{
 
   final DocumentSnapshot book;
   final uid = FirebaseAuth.instance.currentUser!.uid;
-  bool isAdmin = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,25 +67,55 @@ class ViewBookDetailsCheckout extends StatelessWidget{
 
                 if (snapshot.connectionState == ConnectionState.done) {
                   Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
-                  isAdmin = data['isAdmin'];
-                  return ElevatedButton(
-                    child: Text("Add Book To Featured List"),
-                    style: ElevatedButton.styleFrom(primary: Colors.green[300]),
-                    onPressed: () async {
-                      await FirebaseFirestore.instance.collection("FeaturedBooks")
-                          .doc(book['title'])
-                          .set(
-                        {
-                          'title': book['title'],
-                          'author': book['author'],
-                          'year': book['year'],
-                          'description': book['description'],
-                          'picture': book['picture']
-                        }
-                      );
-                      Navigator.pop(context);
-                    },
-                  );
+                  if(data['isAdmin']){
+                    return ElevatedButton(
+                      child: Text("Add Book To Featured List"),
+                      style: ElevatedButton.styleFrom(primary: Colors.green[300]),
+                      onPressed: () async {
+                        await FirebaseFirestore.instance.collection("FeaturedBooks")
+                            .doc(book['title'])
+                            .set(
+                            {
+                              'title': book['title'],
+                              'author': book['author'],
+                              'year': book['year'],
+                              'description': book['description'],
+                              'picture': book['picture']
+                            }
+                        );
+                        Navigator.pop(context);
+                      },
+                    );
+                  }
+                  return Container();
+                }
+                return Text("loading");
+              },
+            ),
+
+            FutureBuilder(
+              future: FirebaseFirestore.instance.collection("Users").doc(uid).get(),
+              builder:  (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text("Something went wrong");
+                }
+
+                if (snapshot.hasData && !snapshot.data!.exists) {
+                  return Container();
+                }
+
+                if (snapshot.connectionState == ConnectionState.done) {
+                  Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                  if(data['isAdmin']){
+                    return ElevatedButton(
+                      child: Text("Delete Book Data"),
+                      style: ElevatedButton.styleFrom(primary: Colors.red[900]),
+                      onPressed: () async {
+                        showAlertDialog(context);
+                      },
+                    );
+                  }
+                  return Container();
                 }
                 return Text("loading");
               },
@@ -93,6 +123,45 @@ class ViewBookDetailsCheckout extends StatelessWidget{
           ],
         ),
       ),
+    );
+  }
+  showAlertDialog(BuildContext context) {
+    // set up the buttons
+    Widget cancelButton = TextButton(
+      child: Text("Cancel"),
+      onPressed:  () {
+        Navigator.of(context, rootNavigator: true).pop();//dismiss dialogue
+      },
+    );
+    Widget continueButton = TextButton(
+      child: Text("Continue"),
+      onPressed:  () async{
+        await FirebaseFirestore.instance.collection("Books")
+            .doc(book['title'])
+            .delete();
+
+        await FirebaseFirestore.instance.collection("FeaturedBooks")
+            .doc(book['title'])
+            .delete();
+        Navigator.of(context, rootNavigator: true).pop();
+        Navigator.pop(context);
+      },
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text("Delete Book?"),
+      content: Text("Are you sure you would like to delete this book?"),
+      actions: [
+        cancelButton,
+        continueButton,
+      ],
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
     );
   }
 }
