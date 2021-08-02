@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 
 class ViewBookDetailsCheckin extends StatelessWidget{
@@ -36,6 +37,8 @@ class ViewBookDetailsCheckin extends StatelessWidget{
               padding: const EdgeInsets.only(left: 30.0, right: 30.0),
               child: Text("Description: " + book['description']),
             ),
+            Text("Date Checked Out: " + DateFormat('MM/dd/yyyy').format(book['checkoutdate'].toDate()).toString()),
+            Text("Date Due: " + DateFormat('MM/dd/yyyy').format(book['duedate'].toDate()).toString()),
 
             ElevatedButton(
               child: Text("Check-in Book"),

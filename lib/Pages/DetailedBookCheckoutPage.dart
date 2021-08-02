@@ -49,7 +49,9 @@ class ViewBookDetailsCheckout extends StatelessWidget{
                       'author': book['author'],
                       'year': book['year'],
                       'description': book['description'],
-                      'picture': book['picture']
+                      'picture': book['picture'],
+                      'checkoutdate': DateTime.now(),
+                      'duedate': DateTime.now().add(Duration(days: 7)),
                     }
                 );
                 Navigator.pop(context);
