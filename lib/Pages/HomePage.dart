@@ -8,6 +8,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _booksStream = FirebaseFirestore.instance.collection('FeaturedBooks').orderBy('title').snapshots();
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'HomePage',
       color: Theme.CompanyColors.green[200],
       theme: Theme.CompanyThemeData,

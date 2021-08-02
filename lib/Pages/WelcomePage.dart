@@ -103,7 +103,18 @@ class _AuthDialogState extends State<AuthDialog> {
                 SizedBox(height: 30),
                 Center(
                   child: Text(
-                    'Your local library',
+                    'Wasted Potential',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontFamily: 'Montserrat',
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 3,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    'Library',
                     style: TextStyle(
                       fontSize: 24,
                       fontFamily: 'Montserrat',

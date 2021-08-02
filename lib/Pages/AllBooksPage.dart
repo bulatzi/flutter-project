@@ -114,6 +114,7 @@ class _BooksPageState extends State<BooksPage> {
   Widget build(BuildContext context) {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'AllBooksPage',
       color: Theme.CompanyColors.green[200],
       theme: Theme.CompanyThemeData,

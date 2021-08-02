@@ -10,6 +10,7 @@ class MyBooks extends StatelessWidget {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final Stream<QuerySnapshot> _booksStream = FirebaseFirestore.instance.collection('Users').doc(uid).collection('Checkouts').orderBy('title').snapshots();
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'MyBooksPage',
       color: Theme.CompanyColors.green[200],
       theme: Theme.CompanyThemeData,

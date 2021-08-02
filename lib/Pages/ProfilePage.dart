@@ -24,7 +24,7 @@ class ProfilePage extends StatelessWidget {
 
           Text(
             //grab users name from firebase?
-            'Isa\'s Profile',
+            'admin@test.com',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20,
@@ -47,6 +47,7 @@ class ProfilePage extends StatelessWidget {
     );
 
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'User Profile',
       color: Theme.CompanyColors.green[200],
       theme: Theme.CompanyThemeData,
