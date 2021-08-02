@@ -1,5 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_project/data.dart' as dt;
 
 //Paths in the database
 const String _booksPath = "books/";
@@ -367,6 +368,7 @@ Future<List<String>> getBooks() async {
   new Map<String, dynamic>.from(data?.value).forEach((key, values) {
     //print(values['title']);
     bookList.add(values['title']);
+    dt.benji.add(values['title']);
   });
 
   return bookList;

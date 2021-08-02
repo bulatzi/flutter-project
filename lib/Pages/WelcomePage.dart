@@ -8,7 +8,6 @@ import 'package:flutter_project/theme.dart' as Theme;
 // TODO - Fix the color scheme on the login page
 
 class WelcomePage extends StatelessWidget {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,9 +15,9 @@ class WelcomePage extends StatelessWidget {
         color: Colors.grey,
         child: Center(
           child: AuthDialog(),
-          ),
         ),
-      );
+      ),
+    );
   }
 }
 
@@ -121,8 +120,8 @@ class _AuthDialogState extends State<AuthDialog> {
                   child: ElevatedButton(
                     child: Text("Bypass Login"),
                     onPressed: () {
-                      Navigator.pushNamed(context, "/BottomBar");
-                      },
+                      Navigator.pushNamed(context, "/TopAppBar");
+                    },
                   ),
                 ),
                 ////////////////////////////////////////////////////////////////////////////////////////
@@ -272,31 +271,32 @@ class _AuthDialogState extends State<AuthDialog> {
                                 textFocusNodePassword.unfocus();
                               });
                               if (_validateEmail(textControllerEmail.text) ==
-                                  null &&
+                                      null &&
                                   _validatePassword(
-                                      textControllerPassword.text) ==
+                                          textControllerPassword.text) ==
                                       null) {
                                 await signInWithEmailPassword(
-                                    textControllerEmail.text,
-                                    textControllerPassword.text)
+                                        textControllerEmail.text,
+                                        textControllerPassword.text)
                                     .then((result) {
                                   if (result != null) {
                                     print(result);
                                     setState(() {
                                       loginStatus =
-                                      'You have successfully logged in';
+                                          'You have successfully logged in';
                                       loginStringColor = Colors.green;
                                     });
                                     Future.delayed(Duration(milliseconds: 500),
-                                            () {
-                                              Navigator.pushNamed(context, "/BottomBar");
-                                        });
+                                        () {
+                                      Navigator.pushNamed(
+                                          context, "/BottomBar");
+                                    });
                                   }
                                 }).catchError((error) {
                                   print('Login Error: $error');
                                   setState(() {
                                     loginStatus =
-                                    'Error occurred while logging in';
+                                        'Error occurred while logging in';
                                     loginStringColor = Colors.red;
                                   });
                                 });
@@ -321,23 +321,23 @@ class _AuthDialogState extends State<AuthDialog> {
                               ),
                               child: _isLoggingIn
                                   ? SizedBox(
-                                height: 16,
-                                width: 16,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor:
-                                  new AlwaysStoppedAnimation<Color>(
-                                    Colors.white,
-                                  ),
-                                ),
-                              )
+                                      height: 16,
+                                      width: 16,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        valueColor:
+                                            new AlwaysStoppedAnimation<Color>(
+                                          Colors.white,
+                                        ),
+                                      ),
+                                    )
                                   : Text(
-                                'Log in',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                ),
-                              ),
+                                      'Log in',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
@@ -359,13 +359,13 @@ class _AuthDialogState extends State<AuthDialog> {
                                 _isRegistering = true;
                               });
                               await registerWithEmailPassword(
-                                  textControllerEmail.text,
-                                  textControllerPassword.text)
+                                      textControllerEmail.text,
+                                      textControllerPassword.text)
                                   .then((result) {
                                 if (result != null) {
                                   setState(() {
                                     loginStatus =
-                                    'You have registered successfully';
+                                        'You have registered successfully';
                                     loginStringColor = Colors.green;
                                   });
                                   print(result);
@@ -374,7 +374,7 @@ class _AuthDialogState extends State<AuthDialog> {
                                 print('Registration Error: $error');
                                 setState(() {
                                   loginStatus =
-                                  'Error occurred while registering';
+                                      'Error occurred while registering';
                                   loginStringColor = Colors.red;
                                 });
                               });
@@ -390,23 +390,23 @@ class _AuthDialogState extends State<AuthDialog> {
                               ),
                               child: _isRegistering
                                   ? SizedBox(
-                                height: 16,
-                                width: 16,
-                                child: CircularProgressIndicator(
-                                  strokeWidth: 2,
-                                  valueColor:
-                                  new AlwaysStoppedAnimation<Color>(
-                                    Colors.white,
-                                  ),
-                                ),
-                              )
+                                      height: 16,
+                                      width: 16,
+                                      child: CircularProgressIndicator(
+                                        strokeWidth: 2,
+                                        valueColor:
+                                            new AlwaysStoppedAnimation<Color>(
+                                          Colors.white,
+                                        ),
+                                      ),
+                                    )
                                   : Text(
-                                'Sign up',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  color: Colors.white,
-                                ),
-                              ),
+                                      'Sign up',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        color: Colors.white,
+                                      ),
+                                    ),
                             ),
                           ),
                         ),
@@ -416,19 +416,19 @@ class _AuthDialogState extends State<AuthDialog> {
                 ),
                 loginStatus != null
                     ? Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      bottom: 20.0,
-                    ),
-                    child: Text(
-                      loginStatus!,
-                      style: TextStyle(
-                        color: loginStringColor,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                )
+                        child: Padding(
+                          padding: const EdgeInsets.only(
+                            bottom: 20.0,
+                          ),
+                          child: Text(
+                            loginStatus!,
+                            style: TextStyle(
+                              color: loginStringColor,
+                              fontSize: 14,
+                            ),
+                          ),
+                        ),
+                      )
                     : Container(),
               ],
             ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project/Pages/AppBar.dart';
 import 'package:flutter_project/Pages/Pages.dart';
 import 'package:flutter_project/Pages/ProfilePage.dart';
 
@@ -15,12 +16,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: "/WelcomePage",
+      initialRoute: "/TopAppBar",
       routes: {
-        "/WelcomePage": (context) => WelcomePage(),
+       // "/WelcomePage": (context) => WelcomePage(),
         "/ExamplePage": (context) => ExamplePage(),
         "/HomePage": (context) => HomePage(),
-        "/BottomBar": (context) => BottomBar(),
+        "/TopAppBar": (context) => TopAppBar(),
         "/MyBooks": (context) => MyBooks(),
         "/ProfilePage": (context) => ProfilePage(),
 

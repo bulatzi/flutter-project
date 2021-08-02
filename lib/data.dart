@@ -1,4 +1,4 @@
-class BookInfo{
+class BookInfo1{
 
   String image = "";
   String title =" ";
@@ -10,11 +10,12 @@ class BookInfo{
 
 
 }
-List<BookInfo> book = [];
-List<BookInfo> getBook(){
+List<String> benji = [];
+List<BookInfo1> book = [];
+List<BookInfo1> getBook1(){
 
 
-  BookInfo bookInfo =  new BookInfo();
+  BookInfo1 bookInfo =  new BookInfo1();
 
   ///book1
   bookInfo.image = "assets/images/sampleBook1.jpg";
@@ -24,7 +25,7 @@ List<BookInfo> getBook(){
   bookInfo.year = 2004;
   book.add(bookInfo);
 
-  bookInfo =  new BookInfo(); ///clears old info
+  bookInfo =  new BookInfo1(); ///clears old info
 
   bookInfo.image = "assets/images/sampleBook2.jpg";
   bookInfo.title = "";
@@ -32,14 +33,14 @@ List<BookInfo> getBook(){
  // bookInfo.rating = 3.4;
   book.add(bookInfo);
 
-  bookInfo =  new BookInfo(); ///clears old info
+  bookInfo =  new BookInfo1(); ///clears old info
   bookInfo.image = "assets/images/sampleBook3.jpg";
   bookInfo.title = "";
   bookInfo.summary = "";
  // bookInfo.rating = 4.4;
   book.add(bookInfo);
 
-  bookInfo =  new BookInfo(); ///clears old info
+  bookInfo =  new BookInfo1(); ///clears old info
 
 
 

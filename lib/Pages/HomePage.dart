@@ -45,12 +45,12 @@ Widget featuredBooks = GridView.builder(
       //mainAxisSpacing: 5,
         scrollDirection: Axis.vertical,
       shrinkWrap: true,
-      itemCount: data.getBook().length,
+      itemCount: data.getBook1().length,
       itemBuilder: (BuildContext context, int index){
          return ListTile(
            contentPadding: EdgeInsets.only(top: 15, right: 15),
 
-           title: Image.asset(data.getBook().elementAt(index).image, fit: BoxFit.fill),
+           title: Image.asset(data.getBook1().elementAt(index).image, fit: BoxFit.fill),
            onTap: () => Navigator.of(context).push(MaterialPageRoute(
         builder: (context) => ViewBook(index)),
            ),
