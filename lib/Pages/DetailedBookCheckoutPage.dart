@@ -3,6 +3,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'AllBooksPage.dart';
+
 
 class ViewBookDetailsCheckout extends StatelessWidget{
 
@@ -147,6 +149,10 @@ class ViewBookDetailsCheckout extends StatelessWidget{
             .delete();
         Navigator.of(context, rootNavigator: true).pop();
         Navigator.pop(context);
+        Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (BuildContext context) => BooksPage()));
       },
     );
     // set up the AlertDialog

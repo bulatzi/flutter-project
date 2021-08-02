@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'AllBooksPage.dart';
+
 class AddBookPage extends StatefulWidget {
 
   @override
@@ -24,6 +26,10 @@ class _AddBookPageState extends State<AddBookPage> {
       });
 
       Navigator.pop(context);
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (BuildContext context) => BooksPage()));
     }catch(e) {
      print(e);
    }
