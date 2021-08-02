@@ -115,17 +115,6 @@ class _AuthDialogState extends State<AuthDialog> {
                 SizedBox(
                   height: 50,
                 ),
-                ////////////////////////////////////////////////////////////////////////////////////////TODO - DELETE THIS
-                // It was added temporarily to allow developers to skip over the login screen without having to type in login info every time.
-                Center(
-                  child: ElevatedButton(
-                    child: Text("Bypass Login"),
-                    onPressed: () {
-                      Navigator.pushNamed(context, "/BottomBar");
-                      },
-                  ),
-                ),
-                ////////////////////////////////////////////////////////////////////////////////////////
                 Padding(
                   padding: const EdgeInsets.only(
                     left: 20.0,
@@ -289,7 +278,7 @@ class _AuthDialogState extends State<AuthDialog> {
                                     });
                                     Future.delayed(Duration(milliseconds: 500),
                                             () {
-                                              Navigator.pushNamed(context, "/BottomBar");
+                                              Navigator.pushReplacementNamed(context, "/BottomBar");
                                         });
                                   }
                                 }).catchError((error) {

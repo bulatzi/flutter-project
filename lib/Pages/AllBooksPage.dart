@@ -8,13 +8,13 @@ import 'Book.dart';
 
 
 //Changes to make ordered by priority:
-// Navigator.pushNamedReplacement in the login page, so there isn't a back button and people can't just leave the app without logging out.
 // Update checkout button on book details screen to give a notification if the book is already checked out.
-// Create a button that only Admin accounts can see that allows them to Add a book to the all books list.
-// Remove bypass login button.
 // Remove title mctitleron and sean's autobiography from database
 
 //Done:
+// Remove bypass login button.
+// Navigator.pushNamedReplacement in the login page, so there isn't a back button and people can't just leave the app without logging out.
+// Create a button that only Admin accounts can see that allows them to Add a book to the all books list.
 // Add search bar to AllBooksPage
 // Create a button that only Admin accounts can see that allows them to remove a book from the all books list.
 // Create button that only Admin accounts can see that allows them to add a book from the featured book list.
@@ -142,7 +142,7 @@ class _BooksPageState extends State<BooksPage> {
                       }
                       return Container();
                     }
-                    return Text("loading");
+                    return CircularProgressIndicator();
                   },
                 ),
           ],
