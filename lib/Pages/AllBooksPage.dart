@@ -8,7 +8,10 @@ import 'Book.dart';
 
 
 //Changes to make ordered by priority:
+// Add checkout timestamps and due dates to the checked out books.
 // Update checkout button on book details screen to give a notification if the book is already checked out.
+// Fix profile page image resizing
+// Fix Welcome Page notifying user about stuff, and errors in code
 // Remove title mctitleron and sean's autobiography from database
 
 //Done:
