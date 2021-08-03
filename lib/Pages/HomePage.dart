@@ -1,9 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/Pages/DetailedFeaturedBookCheckoutPage.dart';
-
-import 'DetailedFeaturedBookCheckinPage.dart';
+import 'package:flutter_project/Pages/DetailedBookPage.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -119,14 +117,14 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) =>
-                        ViewFeaturedBookDetailsCheckin(book: result)));
+                        ViewBookDetails(book: result)));
               }
               else{
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) =>
-                            ViewFeaturedBookDetailsCheckout(book: book)));
+                            ViewBookDetails(book: book)));
               }
             },
           ),

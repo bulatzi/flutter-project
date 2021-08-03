@@ -2,9 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_project/Pages/AddBookPage.dart';
-import 'package:flutter_project/Pages/DetailedBookCheckoutPage.dart';
 import 'Book.dart';
-import 'DetailedBookCheckinPage.dart';
+import 'DetailedBookPage.dart';
 
 
 //Changes to make ordered by priority:
@@ -239,14 +238,14 @@ class _BooksPageState extends State<BooksPage> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) =>
-                          ViewBookDetailsCheckin(book: result)));
+                          ViewBookDetails(book: result)));
                 }
                 else{
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) =>
-                              ViewBookDetailsCheckout(book: book)));
+                              ViewBookDetails(book: book)));
                 }
               }
             ),

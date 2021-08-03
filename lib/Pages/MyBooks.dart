@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_project/Pages/DetailedBookCheckinPage.dart';
+import 'DetailedBookPage.dart';
 
 class MyBooks extends StatelessWidget {
   @override
@@ -90,7 +90,7 @@ class MyBooks extends StatelessWidget {
             onTap: (){
               Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => ViewBookDetailsCheckin(book: book)));
+                  MaterialPageRoute(builder: (context) => ViewBookDetails(book: book)));
             },
           ),
         ),
