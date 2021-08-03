@@ -8,13 +8,19 @@ import 'Book.dart';
 
 
 //Changes to make ordered by priority:
-// Add checkout timestamps and due dates to the checked out books.
 // Update checkout button on book details screen to give a notification if the book is already checked out.
 // Fix profile page image resizing
-// Fix Welcome Page notifying user about stuff, and errors in code
 // Remove title mctitleron and sean's autobiography from database
 
 //Done:
+// Add checkout timestamps and due dates to the checked out books.
+// Add a forgot password button that sends recovery email to the associated account.
+// Add persistence to logins, so that a user stays logged in if they leave the app and come back.
+// Add error warnings to sign up page if a user tries to create an account with an already used email.
+// Add sign up page with same error warnings as login page.
+// Add error warnings to the login page for when a field is filled in incorrectly.
+// Add error warnings to the login page for when a field is not filled.
+// Make brand new login page.
 // Remove bypass login button.
 // Navigator.pushNamedReplacement in the login page, so there isn't a back button and people can't just leave the app without logging out.
 // Create a button that only Admin accounts can see that allows them to Add a book to the all books list.
