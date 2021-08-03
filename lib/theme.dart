@@ -1,16 +1,26 @@
 import 'package:flutter/material.dart';
 
-final ThemeData CompanyThemeData = new ThemeData(
-  brightness: Brightness.light,
-  //primarySwatch: CompanyColors.green,
-  primaryColor: CompanyColors.green[200],
-  primaryColorBrightness: Brightness.light,
-);
+class ThemeProvider extends ChangeNotifier{
+  ThemeMode themeMode = ThemeMode.system;
 
-class CompanyColors {
-  CompanyColors._();
-  static const Map<int, Color> green = const <int, Color> {
-    200: const Color(0xFFA5D6A7),
-    300: const Color(0xFF81C784),
-  };
+  bool get isDarkMode => themeMode == ThemeMode.dark;
+
+  void toggleTheme(bool isOn){
+    themeMode = isOn ?ThemeMode.dark : ThemeMode.light;
+    notifyListeners();
+  }
+}
+
+class MyThemes{
+  static final darkTheme = ThemeData(
+    primaryColor: Colors.green[700],
+    scaffoldBackgroundColor: Colors.grey.shade900,
+    colorScheme: ColorScheme.dark(),
+  );
+
+  static final lightTheme = ThemeData(
+    primaryColor: Colors.green,
+    scaffoldBackgroundColor: Colors.white,
+    colorScheme: ColorScheme.light(),
+  );
 }

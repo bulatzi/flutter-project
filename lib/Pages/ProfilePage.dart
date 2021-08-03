@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Authentication/authservice.dart';
+import 'package:flutter_project/theme.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+
     final ButtonStyle style =
     ElevatedButton.styleFrom(primary: Colors.green, textStyle: const TextStyle(fontSize: 20));
+
     Widget userProfile = Container(
       padding: const EdgeInsets.all(20),
       child: Column(
@@ -20,7 +25,12 @@ class ProfilePage extends StatelessWidget {
           ),
 
           SizedBox(height: 10), //space between picture and user name
-
+          Row(children: [Center(child: Text("Dark Mode: ")), Center(
+            child: Switch.adaptive(value: themeProvider.isDarkMode, onChanged: (value){
+              final provider = Provider.of<ThemeProvider>(context, listen: false);
+              provider.toggleTheme(value);
+            }),
+          )],),
           Text(
             //grab users name from firebase?
             'admin@test.com',
