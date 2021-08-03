@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/Pages/error_handler.dart';
-import 'package:flutter_project/Pages/authservice.dart';
+import 'package:flutter_project/Authentication/authservice.dart';
 
-class SignupPage extends StatefulWidget {
+class ResetPassword extends StatefulWidget {
   @override
-  _SignupPageState createState() => _SignupPageState();
+  _ResetPasswordState createState() => _ResetPasswordState();
 }
 
-class _SignupPageState extends State<SignupPage> {
+class _ResetPasswordState extends State<ResetPassword> {
   final formKey = new GlobalKey<FormState>();
 
-  String? email, password;
+  String? email;
 
   Color greenColor = Color(0xFF00AF19);
 
@@ -28,7 +27,7 @@ class _SignupPageState extends State<SignupPage> {
   String? validateEmail(String value) {
     String pattern =
         r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-    RegExp regex = new RegExp(pattern);
+    RegExp regex = RegExp(pattern);
     if (!regex.hasMatch(value))
       return 'Enter Valid Email';
     else
@@ -41,10 +40,10 @@ class _SignupPageState extends State<SignupPage> {
         body: Container(
             height: MediaQuery.of(context).size.height,
             width: MediaQuery.of(context).size.width,
-            child: Form(key: formKey, child: _buildSignupForm())));
+            child: Form(key: formKey, child: _buildResetForm())));
   }
 
-  _buildSignupForm() {
+  _buildResetForm() {
     return Padding(
         padding: const EdgeInsets.only(left: 25.0, right: 25.0),
         child: ListView(children: [
@@ -54,12 +53,12 @@ class _SignupPageState extends State<SignupPage> {
               width: 200.0,
               child: Stack(
                 children: [
-                  Text('Signup',
+                  Text('reset',
                       style: TextStyle(fontFamily: 'Trueno', fontSize: 60.0)),
                   //Dot placement
                   Positioned(
-                      top: 62.0,
-                      left: 200.0,
+                      top: 47.0,
+                      left: 160.0,
                       child: Container(
                           height: 10.0,
                           width: 10.0,
@@ -83,31 +82,11 @@ class _SignupPageState extends State<SignupPage> {
               },
               validator: (value) =>
               value!.isEmpty ? 'Email is required' : validateEmail(value)),
-          TextFormField(
-              decoration: InputDecoration(
-                  labelText: 'PASSWORD',
-                  labelStyle: TextStyle(
-                      fontFamily: 'Trueno',
-                      fontSize: 12.0,
-                      color: Colors.grey.withOpacity(0.5)),
-                  focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: greenColor),
-                  )),
-              obscureText: true,
-              onChanged: (value) {
-                this.password = value;
-              },
-              validator: (value) =>
-              value!.isEmpty ? 'Password is required' : null),
           SizedBox(height: 50.0),
           GestureDetector(
             onTap: () {
-              if (checkFields())
-                AuthService().signUp(email!, password!).then((userCreds) {
-                  Navigator.of(context).pop();
-                }).catchError((e) {
-                  ErrorHandler().errorDialog(context, e);
-                });
+              if (checkFields()) AuthService().resetPasswordLink(email!);
+              Navigator.of(context).pop();
             },
             child: Container(
                 height: 50.0,
@@ -117,7 +96,7 @@ class _SignupPageState extends State<SignupPage> {
                     color: greenColor,
                     elevation: 7.0,
                     child: Center(
-                        child: Text('SIGN UP',
+                        child: Text('RESET',
                             style: TextStyle(
                                 color: Colors.white, fontFamily: 'Trueno'))))),
           ),

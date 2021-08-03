@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/Pages/Pages.dart';
 import 'package:flutter_project/Pages/ProfilePage.dart';
 import 'package:flutter_project/theme.dart' as Theme;
-import 'Pages/authservice.dart';
+import 'Authentication/authservice.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

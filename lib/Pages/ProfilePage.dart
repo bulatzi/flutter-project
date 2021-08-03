@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/Pages/authservice.dart';
+import 'package:flutter_project/Authentication/authservice.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
