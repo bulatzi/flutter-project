@@ -1,6 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Pages/DetailedFeaturedBookCheckoutPage.dart';
+
+import 'DetailedFeaturedBookCheckinPage.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -110,10 +113,21 @@ class HomePage extends StatelessWidget {
 
               ],
             ),
-            onTap: (){
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => ViewFeaturedBookDetailsCheckout(book: book)));
+            onTap: () async{
+              final DocumentSnapshot result = await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection("Checkouts").doc(book['title']).get();
+              if(result.exists){
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) =>
+                        ViewFeaturedBookDetailsCheckin(book: result)));
+              }
+              else{
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            ViewFeaturedBookDetailsCheckout(book: book)));
+              }
             },
           ),
         ),

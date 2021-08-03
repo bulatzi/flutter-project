@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_project/Pages/AddBookPage.dart';
 import 'package:flutter_project/Pages/DetailedBookCheckoutPage.dart';
 import 'Book.dart';
+import 'DetailedBookCheckinPage.dart';
 
 
 //Changes to make ordered by priority:
@@ -146,7 +147,7 @@ class _BooksPageState extends State<BooksPage> {
                       }
                       return Container();
                     }
-                    return CircularProgressIndicator();
+                    return Container();
                   },
                 ),
           ],
@@ -232,12 +233,22 @@ class _BooksPageState extends State<BooksPage> {
 
                 ],
               ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) =>
-                        ViewBookDetailsCheckout(book: book)));
-              },
+              onTap: () async {
+                final DocumentSnapshot result = await FirebaseFirestore.instance.collection("Users").doc(FirebaseAuth.instance.currentUser!.uid).collection("Checkouts").doc(book['title']).get();
+                if(result.exists){
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>
+                          ViewBookDetailsCheckin(book: result)));
+                }
+                else{
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ViewBookDetailsCheckout(book: book)));
+                }
+              }
             ),
           ),
         ),

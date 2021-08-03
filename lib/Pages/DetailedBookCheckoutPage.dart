@@ -44,71 +44,19 @@ class ViewBookDetailsCheckout extends StatelessWidget{
               child: Text("Checkout Book"),
               style: ElevatedButton.styleFrom(primary: Colors.green),
               onPressed: () async{
-                var _book = await FirebaseFirestore.instance.collection("Users").doc(uid).collection("Checkouts").doc(book['title']).get();
-                if(_book != null)
-                  {
-                    showCupertinoDialog(
-                      context: context,
-                      barrierDismissible: true,
-                      builder: (context)
-                    {
-                      return AlertDialog(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20.0)
-                          ),
-                          title: Text('Error'),
-                          content: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                Container(
-                                    height: 100.0,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            20.0)
-                                    ),
-                                    child: Center(
-                                        child: Text(
-                                            "This book is already checked out."
-                                        )
-                                    )
-                                ),
-                                Container(
-                                    height: 50.0,
-                                    child: Row(
-                                        children: [
-                                          TextButton(
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                              child: Text('Ok')
-                                          )
-                                        ]
-                                    )
-                                )
-                              ]
-                          )
-                      );
-                    },
-                    );
-                  }
 
-                else{
-                  await FirebaseFirestore.instance
-                      .collection("Users")
-                      .doc(uid)
-                      .collection("Checkouts")
-                      .doc(book['title'])
-                      .set({
-                    'title': book['title'],
-                    'author': book['author'],
-                    'year': book['year'],
-                    'description': book['description'],
-                    'picture': book['picture'],
-                    'checkoutdate': DateTime.now(),
-                    'duedate': DateTime.now().add(Duration(days: 7)),
-                  });
-                  Navigator.pop(context);
-                }
+                await FirebaseFirestore.instance.collection("Users").doc(uid).collection("Checkouts").doc(book['title']).set(
+                    {
+                      'title': book['title'],
+                      'author': book['author'],
+                      'year': book['year'],
+                      'description': book['description'],
+                      'picture': book['picture'],
+                      'checkoutdate': DateTime.now(),
+                      'duedate': DateTime.now().add(Duration(days: 7)),
+                    }
+                );
+                Navigator.pop(context);
               },),
             FutureBuilder(
               future: FirebaseFirestore.instance.collection("Users").doc(uid).get(),
