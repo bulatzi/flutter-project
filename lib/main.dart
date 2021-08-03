@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/Pages/Pages.dart';
 import 'package:flutter_project/Pages/ProfilePage.dart';
 
+import 'Pages/authservice.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
@@ -19,9 +21,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: "/WelcomePage",
+      home: AuthService().handleAuth(),
       routes: {
-        "/WelcomePage": (context) => WelcomePage(),
         "/ExamplePage": (context) => ExamplePage(),
         "/HomePage": (context) => HomePage(),
         "/BottomBar": (context) => BottomBar(),

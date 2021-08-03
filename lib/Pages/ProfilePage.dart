@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project/Database/authentication.dart';
+import 'package:flutter_project/Pages/authservice.dart';
 import 'package:flutter_project/theme.dart' as Theme;
 
 class ProfilePage extends StatelessWidget {
@@ -36,8 +36,7 @@ class ProfilePage extends StatelessWidget {
           ElevatedButton( //log out button
             style: style,
             onPressed: () {
-              signOut();
-              Navigator.pushReplacementNamed(context, "/WelcomePage");
+              AuthService().signOut();
             },
             child: const Text('Log Out'),
 
