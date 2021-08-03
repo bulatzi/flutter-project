@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Pages/Pages.dart';
 //================Bottom BAr=====================================//
@@ -36,10 +37,11 @@ class _BottomBar extends State<BottomBar> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
+        selectedIconTheme: IconThemeData(color: Colors.green),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.menu_book_rounded),
-            label: 'home',
+            label: 'Home',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.art_track_rounded),
