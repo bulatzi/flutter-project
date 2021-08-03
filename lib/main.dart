@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
         debugShowCheckedModeBanner: true,
-        title: 'User Profile',
+        title: 'Wasted Potential Library',
         color: Theme.CompanyColors.green[200],
         theme: Theme.CompanyThemeData,
         home: AuthService().handleAuth(),
