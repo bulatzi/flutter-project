@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Pages/authservice.dart';
-import 'package:flutter_project/theme.dart' as Theme;
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -45,12 +44,7 @@ class ProfilePage extends StatelessWidget {
       ),
     );
 
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'User Profile',
-      color: Theme.CompanyColors.green[200],
-      theme: Theme.CompanyThemeData,
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text('User Profile',
             style: TextStyle(
@@ -63,7 +57,6 @@ class ProfilePage extends StatelessWidget {
             userProfile,
           ],
         ),
-      ),
-    );
+      );
   }
 }

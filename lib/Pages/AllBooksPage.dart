@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_project/Pages/AddBookPage.dart';
 import 'package:flutter_project/Pages/DetailedBookCheckoutPage.dart';
-import 'package:flutter_project/theme.dart' as Theme;
 import 'Book.dart';
 
 
@@ -119,12 +118,7 @@ class _BooksPageState extends State<BooksPage> {
 
   Widget build(BuildContext context) {
     final uid = FirebaseAuth.instance.currentUser!.uid;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'AllBooksPage',
-      color: Theme.CompanyColors.green[200],
-      theme: Theme.CompanyThemeData,
-      home: Scaffold(
+    return Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text('All Books',
@@ -178,8 +172,7 @@ class _BooksPageState extends State<BooksPage> {
             ],
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget buildBookCard(BuildContext context, DocumentSnapshot book) {

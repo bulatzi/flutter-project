@@ -1,18 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Pages/DetailedFeaturedBookCheckoutPage.dart';
-import 'package:flutter_project/theme.dart' as Theme;
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Stream<QuerySnapshot> _booksStream = FirebaseFirestore.instance.collection('FeaturedBooks').orderBy('title').snapshots();
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'HomePage',
-      color: Theme.CompanyColors.green[200],
-      theme: Theme.CompanyThemeData,
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text('Home Page',
             style: TextStyle(
@@ -63,8 +57,7 @@ class HomePage extends StatelessWidget {
               }
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget buildCheckoutList(BuildContext context, DocumentSnapshot book) {

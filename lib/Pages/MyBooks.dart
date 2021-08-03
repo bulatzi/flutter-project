@@ -2,19 +2,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Pages/DetailedBookCheckinPage.dart';
-import 'package:flutter_project/theme.dart' as Theme;
 
 class MyBooks extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     final Stream<QuerySnapshot> _booksStream = FirebaseFirestore.instance.collection('Users').doc(uid).collection('Checkouts').orderBy('title').snapshots();
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'MyBooksPage',
-      color: Theme.CompanyColors.green[200],
-      theme: Theme.CompanyThemeData,
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: Text('My Books',
             style: TextStyle(
@@ -40,8 +34,7 @@ class MyBooks extends StatelessWidget {
               }
           ),
         ),
-      ),
-    );
+      );
   }
 
   Widget buildCheckoutList(BuildContext context, DocumentSnapshot book) {

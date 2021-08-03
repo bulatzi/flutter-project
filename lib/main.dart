@@ -2,7 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Pages/Pages.dart';
 import 'package:flutter_project/Pages/ProfilePage.dart';
-
+import 'package:flutter_project/theme.dart' as Theme;
 import 'Pages/authservice.dart';
 
 void main() async {
@@ -16,20 +16,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: AuthService().handleAuth(),
-      routes: {
-        "/ExamplePage": (context) => ExamplePage(),
-        "/HomePage": (context) => HomePage(),
-        "/BottomBar": (context) => BottomBar(),
-        "/BooksPage": (context) => BooksPage(),
-        "/MyBooks": (context) => MyBooks(),
-        "/ProfilePage": (context) => ProfilePage(),
-      }
-    );
+        debugShowCheckedModeBanner: true,
+        title: 'User Profile',
+        color: Theme.CompanyColors.green[200],
+        theme: Theme.CompanyThemeData,
+        home: AuthService().handleAuth(),
+        routes: {
+          "/ExamplePage": (context) => ExamplePage(),
+          "/HomePage": (context) => HomePage(),
+          "/BottomBar": (context) => BottomBar(),
+          "/BooksPage": (context) => BooksPage(),
+          "/MyBooks": (context) => MyBooks(),
+          "/ProfilePage": (context) => ProfilePage(),
+        }
+        );
   }
 }
