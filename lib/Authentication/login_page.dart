@@ -138,30 +138,30 @@ class _LoginPageState extends State<LoginPage> {
                                 color: Colors.white, fontFamily: 'Trueno'))))),
           ),
           SizedBox(height: 20.0),
-          GestureDetector(
-            onTap: () {},
-            child: Container(
-                height: 50.0,
-                color: Colors.transparent,
-                child: Container(
-                  decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Colors.black,
-                          style: BorderStyle.solid,
-                          width: 1.0),
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(25.0)),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(width: 10.0),
-                      Center(
-                          child: Text('Login with google',
-                              style: TextStyle(fontFamily: 'Trueno'))),
-                    ],
-                  ),
-                )),
-          ),
+          // GestureDetector(
+          //   onTap: () {},
+          //   child: Container(
+          //       height: 50.0,
+          //       color: Colors.transparent,
+          //       child: Container(
+          //         decoration: BoxDecoration(
+          //             border: Border.all(
+          //                 color: Colors.black,
+          //                 style: BorderStyle.solid,
+          //                 width: 1.0),
+          //             color: Colors.transparent,
+          //             borderRadius: BorderRadius.circular(25.0)),
+          //         child: Row(
+          //           mainAxisAlignment: MainAxisAlignment.center,
+          //           children: [
+          //             SizedBox(width: 10.0),
+          //             Center(
+          //                 child: Text('Login with google',
+          //                     style: TextStyle(fontFamily: 'Trueno'))),
+          //           ],
+          //         ),
+          //       )),
+          // ),
           SizedBox(height: 25.0),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
             Text('New to the Library ?'),
