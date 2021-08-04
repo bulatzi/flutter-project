@@ -42,6 +42,15 @@ class AuthService {
         .createUserWithEmailAndPassword(email: email, password: password);
   }
 
+  updateUserName(String name){
+    var user = FirebaseAuth.instance.currentUser;
+    return user!.updateDisplayName(name);
+  }
+
+  updateUserPhoto(String url){
+    var user = FirebaseAuth.instance.currentUser;
+    return user!.updatePhotoURL(url);
+  }
   //Reset Password
   resetPasswordLink(String email) {
     FirebaseAuth.instance.sendPasswordResetEmail(email: email);
