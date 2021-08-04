@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project/Authentication/authservice.dart';
 import 'package:flutter_project/theme.dart';
@@ -25,12 +26,6 @@ class ProfilePage extends StatelessWidget {
           ),
 
           SizedBox(height: 10), //space between picture and user name
-          Row(children: [Center(child: Text("Dark Mode: ")), Center(
-            child: Switch.adaptive(value: themeProvider.isDarkMode, onChanged: (value){
-              final provider = Provider.of<ThemeProvider>(context, listen: false);
-              provider.toggleTheme(value);
-            }),
-          )],),
           Text(
             //grab users name from firebase?
             'admin@test.com',
@@ -61,6 +56,16 @@ class ProfilePage extends StatelessWidget {
               fontSize: 30,
             ),
           ),
+          actions: [
+            IconButton(
+              icon: Icon(CupertinoIcons.moon_stars),
+              onPressed: (){
+                bool value = themeProvider.isDarkMode;
+                final provider = Provider.of<ThemeProvider>(context, listen: false);
+                provider.toggleTheme(value);
+              },
+            ),
+          ],
         ),
         body: ListView(
           children: [
