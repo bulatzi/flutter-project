@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_project/Authentication/authservice.dart';
 import 'package:flutter_project/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class ProfilePage extends StatelessWidget {
   @override
@@ -26,14 +27,25 @@ class ProfilePage extends StatelessWidget {
           ),
 
           SizedBox(height: 10), //space between picture and user name
-          Text(
-            //grab users name from firebase?
-            'admin@test.com',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
+          FutureBuilder(
+            future: AuthService().getCurrentUser(),
+            builder: (context, snapshot){
+              if(snapshot.connectionState == ConnectionState.done){
+                return displayUserInformation(context, snapshot);
+              }else {
+                return CircularProgressIndicator();
+              }
+            }
           ),
+
+          // Text(
+          //   //grab users name from firebase?
+          //   'admin@test.com',
+          //   style: TextStyle(
+          //     fontWeight: FontWeight.bold,
+          //     fontSize: 20,
+          //   ),
+          // ),
 
           SizedBox(height: 30),
 
@@ -74,4 +86,29 @@ class ProfilePage extends StatelessWidget {
         ),
       );
   }
+}
+
+Widget displayUserInformation(context, snapshot) {
+  final user = snapshot.data;
+
+  return Column(
+    children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+          "Name: ${user.displayName ?? 'Anonymous'}", style: TextStyle(fontSize: 20),),
+      ),
+
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text("Email: ${user.email ?? 'Anonymous'}", style: TextStyle(fontSize: 20),),
+      ),
+
+      Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text("Created: ${DateFormat('MM/dd/yyyy').format(
+            user.metadata.creationTime)}", style: TextStyle(fontSize: 20),),
+      ),
+    ],
+  );
 }

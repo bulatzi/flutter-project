@@ -17,6 +17,9 @@ class AuthService {
         });
   }
 
+  getCurrentUser() async{
+    return FirebaseAuth.instance.currentUser;
+  }
   //Sign out
   signOut() {
     FirebaseAuth.instance.signOut();
