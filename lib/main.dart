@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
         final themeProvider = Provider.of<ThemeProvider>(context);
 
         return MaterialApp(
-            debugShowCheckedModeBanner: true,
+            debugShowCheckedModeBanner: false,
             title: 'Wasted Potential Library',
             themeMode: themeProvider.themeMode,
             theme: Theme.MyThemes.lightTheme,
