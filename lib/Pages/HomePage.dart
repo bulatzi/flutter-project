@@ -33,11 +33,13 @@ class HomePage extends StatelessWidget {
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                            Image.asset(
-                                'assets/images/libLogo.jpg',
-                                height: 285,
+                            Center(
+                              child: Image.asset(
+                                  'assets/images/newpng.png',
+                                  height: 200,
                                 fit: BoxFit.contain,
-                              ),
+                                ),
+                            ),
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
