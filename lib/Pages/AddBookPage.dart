@@ -107,6 +107,7 @@ class _AddBookPageState extends State<AddBookPage> {
     textFields.add(SizedBox(height: 20,));
 
     textFields.add(TextFormField(
+      maxLines: 5,
       style: TextStyle(fontSize: 22.0),
       decoration: InputDecoration(
           hintText: "Description",
@@ -114,7 +115,7 @@ class _AddBookPageState extends State<AddBookPage> {
           fillColor: Colors.white,
           focusColor: Colors.white,
           enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.white, width: 0.0)),
-          contentPadding: const EdgeInsets.only(left: 14.0, bottom: 10.0, top: 10.0)
+          contentPadding: const EdgeInsets.only(left: 14.0, bottom: 10.0, top: 10.0),
       ),
       onSaved: (value) => _description = value!,
     ));
